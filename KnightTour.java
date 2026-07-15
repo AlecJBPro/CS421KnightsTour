@@ -17,13 +17,12 @@ public final class KnightTour {
 
             KnightBoard board = new KnightBoard(size, strategy);
             boolean solved = board.solve(startRow, startColumn);
+            System.out.println("The total number of moves is " + board.getMovesTried());
             if (solved) {
-                System.out.println("A knight's tour was found:");
                 printBoard(board);
             } else {
-                System.out.println("No knight's tour exists for the given starting position.");
+                System.out.println("No solution found!");
             }
-            System.out.println("Total moves tried: " + board.getMovesTried());
         } catch (NumberFormatException exception) {
             System.err.println("All four arguments must be integers.");
             printUsage();
@@ -35,16 +34,12 @@ public final class KnightTour {
 
     private static void printBoard(KnightBoard board) {
         int width = Integer.toString(board.getSize() * board.getSize()).length();
-        System.out.printf("%" + width + "s ", "");
-        for (int column = 0; column < board.getSize(); column++) {
-            System.out.printf("%" + width + "d ", column);
-        }
-        System.out.println();
-
         for (int row = 0; row < board.getSize(); row++) {
-            System.out.printf("%" + width + "d ", row);
             for (int column = 0; column < board.getSize(); column++) {
-                System.out.printf("%" + width + "d ", board.getMoveNumber(row, column));
+                if (column > 0) {
+                    System.out.print(" ");
+                }
+                System.out.printf("%" + width + "d", board.getMoveNumber(row, column));
             }
             System.out.println();
         }
